@@ -1,5 +1,7 @@
 {
   "name": "reupdate",
+  "description": "Reference careful update. Reduce updates of Redux state",
+  "keywords": ["redux", "reselect", "react"],
   "version": "1.0.0",
   "main": "build/index.js",
   "repository": "https://nukisman@bitbucket.org/nukisman/reupdate.git",

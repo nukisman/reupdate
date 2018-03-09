@@ -18,22 +18,26 @@ const myReducer = (state, action) => {
   state = {wip: true, data: [1, 2, 3]};
   
   /* Set new state: 
-   * Create new object |=> reselect will recompute, react will re-render 
+   * Create new object 
+   * |=> reselect will recompute, react will re-render 
    */
   return {wip: true, data: [1, 2, 3]};
   
   /* Set new state (wip only changed): 
-   * Create new object |=> reselect will recompute, react will re-render 
+   * Create new object 
+   * |=> reselect will recompute, react will re-render 
    */
   return {wip: false, data: [1, 2, 3]};    
   
   /* Extend existing state: 
-   * Create new object |=> reselect will recompute, react will re-render 
+   * Create new object 
+   * |=> reselect will recompute, react will re-render 
    */
   return {...state, wip: true, data: [1, 2, 3]};
   
   /* Extend existing state (wip only changed): 
-   * Create new object |=> reselect will recompute, react will re-render 
+   * Create new object 
+   * |=> reselect will recompute, react will re-render 
    */
   return {...state, wip: false, data: [1, 2, 3]};
 };
@@ -52,22 +56,26 @@ const myReducer = (state, action) => {
   state = {wip: true, data: [1, 2, 3]};
   
   /* Set new state: 
-   * Return same reference to state because nothing was actually changed 
+   * Return same reference to the state 
+   * because nothing was actually changed 
    */
   return set(state, {wip: true, data: [1, 2, 3]}); // state   
   
   /* Set new state (wip only changed): 
-   * Return new object but .data references to original state.data because it not actually changed 
+   * Return new object with .data references to original state.data 
+   * because it was not actually changed 
    */
   return set(state, {wip: false, data: [1, 2, 3]}); // {wip: false, data: state.data}  
   
   /* Extend existing state: 
-   * Return same reference to state because nothing was actually changed 
+   * Return same reference to the state 
+   * because nothing was actually changed 
    */
   return extend(state, {wip: true, data: [1, 2, 3]}); // state
   
   /* Extend existing state (wip only changed): 
-   * Return new object but .data references to original state.data because it not actually changed 
+   * Return new object with .data references to original state.data 
+   * because it was not actually changed 
    */
   return extend(state, {wip: false, data: [1, 2, 3]}); // {wip: false, data: state.data}
 };

@@ -1,8 +1,12 @@
 {
   "name": "reupdate",
   "description": "Reference careful update. Reduce updates of Redux state",
-  "keywords": ["redux", "reselect", "react"],
-  "version": "1.0.0",
+  "keywords": [
+    "redux",
+    "reselect",
+    "react"
+  ],
+  "version": "1.0.1",
   "main": "build/index.js",
   "repository": "https://nukisman@bitbucket.org/nukisman/reupdate.git",
   "author": "Alexander Nuikin <nukisman@gmail.com>",
@@ -13,8 +17,7 @@
     "rebuild": "yarn run clean && yarn run build",
     "test": "npx jest -c jest.config.json"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-syntax-class-properties": "^6.13.0",

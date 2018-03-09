@@ -1,8 +1,8 @@
 {
-  "name": "redux-update",
+  "name": "reupdate",
   "version": "1.0.0",
   "main": "build/index.js",
-  "repository": "https://nukisman@bitbucket.org/nukisman/redux-update.git",
+  "repository": "https://nukisman@bitbucket.org/nukisman/reupdate.git",
   "author": "Alexander Nuikin <nukisman@gmail.com>",
   "license": "MIT",
   "scripts": {

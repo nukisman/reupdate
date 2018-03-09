@@ -8,7 +8,7 @@
   ],
   "version": "1.0.3",
   "main": "build/index.js",
-  "repository": "https://nukisman@bitbucket.org/nukisman/reupdate.git",
+  "repository": "https://bitbucket.org/nukisman/reupdate.git",
   "author": "Alexander Nuikin <nukisman@gmail.com>",
   "license": "MIT",
   "scripts": {

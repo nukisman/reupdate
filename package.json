@@ -6,7 +6,7 @@
     "reselect",
     "react"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "build/index.js",
   "repository": "https://nukisman@bitbucket.org/nukisman/reupdate.git",
   "author": "Alexander Nuikin <nukisman@gmail.com>",

@@ -1,0 +1,8 @@
+{
+  "presets": ["env"],
+  "plugins": [
+    "syntax-class-properties",
+    "transform-class-properties",
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
+}

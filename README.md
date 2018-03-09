@@ -77,7 +77,8 @@ const myReducer = (state, action) => {
 
 #### set(value, newValue)
 
-Returns `value` if `newValue` is deep equal to `value`.
+Returns `value` if `newValue` has nothing new (is deep equal to `value`).
+
 Returns new object/array with: 
   * Same references to not changed properties/items 
   * New references to changed properties/items
@@ -121,7 +122,8 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
         
 #### extend(object, extensionObject)
 
-Returns `object` if `extensionObject` has deep equal only properties.
+Returns `object` if `extensionObject` has nothing new (has deep equal only properties).
+
 Returns new object with: 
   * Same references to not changed properties 
   * New references to changed properties
@@ -163,4 +165,4 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 
 ### Note
 
-`reupdate` has no dependencies on `redux`, `reselect`, etc. so you can use it with other frameworks.
+`reupdate` has no dependencies to `redux`, `reselect`, `react`, etc. so you can use it with other frameworks.

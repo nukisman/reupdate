@@ -1,21 +1,21 @@
-### Reference careful update
+## Reference careful update
 
 Reduce updates of your `redux` state means:
+
 * Reduce recalculations of your `reselect`/`re-reselect` selectors
 * Reduce re-rendering of your `react` components
 
-### Motivation
+## Motivation
 
 Typically, the state changes less frequently than it is read.  
 
 To avoid extra re-evaluations (and re-rendering) with `redux`, `reselect`, `react` and others we should return same reference to the (maybe nested) state when it was updated but actually not changed (some isDeepEqual(state, nextState) gives true).
 
-### Problem
+## Problem
 
 Using native JS syntax we always create new references:  
 ```javascript
-const myReducer = (state, action) => {
-  
+const myReducer = (state, action) => {  
   /* Imagine current state is: */
   state = {wip: true, data: [1, 2, 3]};
   
@@ -45,15 +45,14 @@ const myReducer = (state, action) => {
 };
 ``` 
 
-### Solution
+## Solution
 
 Use `set` and `extend` functions in your reducers:
 
 ```javascript
 import {set, extend} from 'reupdate';
 
-const myReducer = (state, action) => {
-  
+const myReducer = (state, action) => {  
   /* Imagine current state is: */
   state = {wip: true, data: [1, 2, 3]};
   
@@ -83,7 +82,7 @@ const myReducer = (state, action) => {
 };
 ``` 
 
-### Performance of React Component.shouldComponentUpdate()
+## Performance of React Component.shouldComponentUpdate()
 
 As it is written in the documentation of the [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) method:
 ```
@@ -94,7 +93,7 @@ It is very inefficient and will harm performance.
 ```jsx harmony
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import deepEqual from 'lodash/isEqual';
+// import deepEqual from 'lodash/isEqual';
 
 class AddressComponent extends Component {
   shouldComponentUpdate(nextProps) {
@@ -127,9 +126,9 @@ AddressComponent = connect(
 )(AddressComponent);
 ```
 
-### API
+## API
 
-#### set(value, newValue)
+### set(value, newValue)
 
 Returns `value` if `newValue` has nothing new (is deep equal to `value`).
 
@@ -182,7 +181,7 @@ expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
         
-#### extend(object, extensionObject)
+### extend(object, extensionObject)
 
 Returns `object` if `extensionObject` has nothing new (has deep equal only properties).
 
@@ -225,6 +224,6 @@ expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
 
-### Note
+## Notes
 
 `reupdate` has no dependencies to `redux`, `reselect`, `react`, etc. so you can use it with other frameworks.

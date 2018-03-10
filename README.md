@@ -6,6 +6,8 @@ Reduce updates of your `redux` state means:
 
 ### Motivation
 
+Typically, the state changes less frequently than it is read.  
+
 To avoid extra re-evaluations (and re-rendering) with `redux`, `reselect`, `react` and others we should return same reference to the (maybe nested) state when it was updated but actually not changed (some isDeepEqual(state, nextState) gives true).
 
 ### Problem
@@ -81,6 +83,50 @@ const myReducer = (state, action) => {
 };
 ``` 
 
+### Performance of React Component.shouldComponentUpdate()
+
+As it is written in the documentation of the [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) method:
+```
+We do not recommend doing deep equality checks or using JSON.stringify() in shouldComponentUpdate(). 
+It is very inefficient and will harm performance.
+```
+
+```jsx harmony
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import deepEqual from 'lodash/isEqual';
+
+class AddressComponent extends Component {
+  shouldComponentUpdate(nextProps) {
+    /** Without reupdate we should use deep equal */
+    // return !deepEqual(this.props.address, nextProps.address);
+    
+    /** With reupdate we can just compare references */
+    return this.props.address !== nextProps.address;
+  }
+  render() {
+    const {country, city, street, postalCode} = this.props.address;
+    return (
+      <div>
+        country
+        <br/>
+        city
+        <br/>
+        street
+        <br/>
+        postalCode
+      </div>
+    );
+  }
+}
+
+AddressComponent = connect(
+  state => ({
+    address: state.user.bestFriend.address
+  })
+)(AddressComponent);
+```
+
 ### API
 
 #### set(value, newValue)
@@ -103,7 +149,10 @@ const src = {
     country: 'Russia',
     city: 'Moscow'
   },
-  friends: [{ name: 'Vasya', age: 25 }, { name: 'Fedor', age: 33 }]
+  friends: [
+    { name: 'Vasya', age: 25 }, 
+    { name: 'Fedor', age: 33 }
+  ]
 };
 const replacement = {
   name: 'Alex',
@@ -113,16 +162,21 @@ const replacement = {
   },
   address: {
     country: 'Russia',
-    city: 'St. Petersburg'
+    city: 'Moscow'
   },
-  friends: [{ name: 'Vasya', age: 3 }, { name: 'Fedor', age: 33 }]
+  friends: [
+    { name: 'Vasya', age: 3 }, // The ONLY actual change!  
+    { name: 'Fedor', age: 33 }
+  ]
 };
 
 const res = set(src, replacement);
 
+expect(res).toEqual(replacement); // Correct result
+
 expect(res === src).toBe(false);
 expect(res.info === src.info).toBe(true); // Same reference!
-expect(res.address === src.address).toBe(false);
+expect(res.address === src.address).toBe(true); // Same reference!
 expect(res.friends === src.friends).toBe(false);
 expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
@@ -147,25 +201,25 @@ const src = {
     country: 'Russia',
     city: 'Moscow'
   },
-  friends: [{ name: 'Vasya', age: 25 }, { name: 'Fedor', age: 33 }]
+  friends: [
+    { name: 'Vasya', age: 25 }, 
+    { name: 'Fedor', age: 33 }
+  ]
 };
 const extension = {
-  info: {
-    greeting: 'Hello',
-    description: 'I am developer'
-  },
-  address: {
-    country: 'Russia',
-    city: 'St. Petersburg'
-  },
-  friends: [{ name: 'Vasya', age: 3 }, { name: 'Fedor', age: 33 }]
+  friends: [
+    { name: 'Vasya', age: 3 }, // The ONLY actual change! 
+    { name: 'Fedor', age: 33 }
+  ]
 };
 
 const res = extend(src, extension);
 
+expect(res).toEqual({...src, ...extension}); // Correct result
+
 expect(res === src).toBe(false);
 expect(res.info === src.info).toBe(true); // Same reference!
-expect(res.address === src.address).toBe(false);
+expect(res.address === src.address).toBe(true); // Same reference! 
 expect(res.friends === src.friends).toBe(false);
 expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!

@@ -1,15 +1,35 @@
-## Reference careful update
+## Selector friendly immutable update
 
 Reduce updates of your `redux` state means:
 
 * Reduce recalculations of your `reselect`/`re-reselect` selectors
 * Reduce re-rendering of your `react` components
 
+### Note
+
+`reupdate` has no dependencies to `redux`, `reselect`, `react`, etc. so you can use it with other frameworks.
+
 ## Motivation
 
 Typically, the state changes less frequently than it is read.  
 
-To avoid extra re-evaluations (and re-rendering) with `redux`, `reselect`, `react` and others we should return same reference to the (maybe nested) state when it was updated but actually not changed (some isDeepEqual(state, nextState) gives true).
+To avoid extra re-evaluations (and re-rendering) with `redux`, `reselect`, `react` and others we should return same reference to the (maybe nested) state when it was updated but actually not changed (some isDeepEqual(state, nextState) gives true). 
+
+## Rule 
+
+If your update of `src` value do not change it (in sense of deep equality) then `result === src` must give `true`:   
+
+`isDeepEqual(src, value) |=> result === src`
+
+This rule also must work for nested not changed values as is:
+
+`isDeepEqual(src.a.b.c, value.a.b.c) |=> result.a.b.c === src.a.b.c`  
+
+### Difference from `object-path-immutable` and `immutability-helper`
+
+`object-path-immutable` and `immutability-helper` usually expect that you know what is the difference from `src` and `value` and some times returns reference for `value` despite it is deep equal to `src`. As a result we have extra recalculations of selectors and/or re-rendering of components.
+
+In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! 
 
 ## Problem
 
@@ -100,7 +120,9 @@ class AddressComponent extends Component {
     /** Without reupdate we should use deep equal */
     // return !deepEqual(this.props.address, nextProps.address);
     
-    /** With reupdate we can just compare references */
+    /** With reupdate we can just compare references.
+    * or just use React.PureComponent class shallow-equal implementation of shouldComponentUpdate.
+    */
     return this.props.address !== nextProps.address;
   }
   render() {
@@ -126,6 +148,8 @@ AddressComponent = connect(
 )(AddressComponent);
 ```
 
+See also [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+
 ## API
 
 ### set(value, newValue)
@@ -138,6 +162,8 @@ Returns new object/array with:
 
 Example:
 ```javascript
+import set from 'reupdate/set'
+
 const src = {
   name: 'Alex',
   info: {
@@ -180,6 +206,14 @@ expect(res.friends === src.friends).toBe(false);
 expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
+
+### setAt(value, path, newValue)
+
+`set` nested part of value
+
+### deleteAt(value, path)
+
+Equal to `setAt(value, path, undefined)`
         
 ### extend(object, extensionObject)
 
@@ -190,6 +224,8 @@ Returns new object with:
   * New references to changed properties
   
 ```javascript
+import extend from 'reupdate/extend'
+
 const src = {
   name: 'Alex',
   info: {
@@ -224,6 +260,6 @@ expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
 
-## Notes
+### extendAt(value, path, extensionObject)
 
-`reupdate` has no dependencies to `redux`, `reselect`, `react`, etc. so you can use it with other frameworks.
+`extend` nested object of value

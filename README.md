@@ -260,6 +260,6 @@ expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
 
-### extendAt(value, path, extensionObject)
+### extendAt(value, pathToObject, extensionObject)
 
 `extend` nested object of value

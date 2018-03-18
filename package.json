@@ -8,16 +8,18 @@
     "selector",
     "immutable"
   ],
-  "version": "1.2.0",
-  "main": "build/index.js",
+  "version": "1.2.3",
+  "main": "index.js",
   "repository": "https://github.com/nukisman/reupdate",
   "author": "Alexander Nuikin <nukisman@gmail.com>",
   "license": "MIT",
   "scripts": {
     "clean": "rm -fR build/*",
-    "build": "npx babel src/ --out-dir build/ -q --source-maps inline",
+    "build": "npx babel src/ --out-dir build/ -q --source-maps inline && yarn run postbuild",
     "rebuild": "yarn run clean && yarn run build",
-    "test": "npx jest -c jest.config.json"
+    "test": "npx jest -c jest.config.json",
+    "copy": "cp package.json build/ && cp .npmignore build/",
+    "postbuild": "yarn run copy && cd build && yarn unlink && yarn link"
   },
   "dependencies": {
     "lodash": "^4.17.5"

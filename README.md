@@ -156,6 +156,7 @@ See also [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpure
 
 * [set(value, newValue)](#setvalue-newvalue)
 * [setAt(value, path, newValue)](#setatvalue-path-newvalue)
+* [updateAt(value, path, updater)](#updateatvalue-path-updater)
 * [deleteAt(value, path)](#deleteatvalue-path)
 * [extend(object, extensionObject)](#extendobject-extensionobject)
 * [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
@@ -218,6 +219,13 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ### setAt(value, path, newValue)
 
 `set` nested part of value
+
+### updateAt(value, path, updater)
+
+Example: 
+```js
+updateAt(state, 'a.b[1].c', c => c + 1)
+```
 
 ### deleteAt(value, path)
 

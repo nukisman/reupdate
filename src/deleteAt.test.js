@@ -3,6 +3,36 @@
 import deleteAt from './deleteAt';
 
 describe('Delete at', () => {
+  test('Delete at implicit undefined', () => {
+    const state = {
+      a: true,
+      b: { x: 123 }
+    };
+    const res = deleteAt(state, 'wrong');
+    expect(res).toBe(state);
+  });
+
+  test('Delete at explicit undefined', () => {
+    const state = {
+      a: true,
+      b: { x: 123 },
+      c: undefined
+    };
+    const res = deleteAt(state, 'c');
+    expect(res).toBe(state);
+  });
+
+  // test('Delete at nested undefined', () => {
+  //   // todo: Create intermediate objects/arrays if necessary
+  //   const state = {
+  //     a: true,
+  //     b: { x: 123 },
+  //     c: undefined
+  //   };
+  //   const res = deleteAt(state, 'c[0].foo');
+  //   expect(res).toBe(state);
+  // });
+
   test('Delete at wip', () => {
     const state = {
       wip: true,

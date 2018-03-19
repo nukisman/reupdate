@@ -116,7 +116,7 @@ describe('Extend object', () => {
       ids: ['a', 'b', 'c']
     };
     const res = extendAt(state, 'result', ext);
-    console.log({ res });
+    // console.log({ res });
     expect(res).toEqual({
       ...state,
       ...{ result: { ...state.result, ...ext } }

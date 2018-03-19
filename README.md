@@ -252,6 +252,15 @@ updateAt(state, 'a.b[1].c', c => c + 1)
 ### deleteAt(value, path)
 
 Equal to `setAt(value, path, undefined)`
+
+Important edge case: delete undefined value saves reference: 
+```js
+import deleteAt from 'reupdate/deleteAt';
+
+const value = {x: 1};
+const res = deleteAt(value, 'y');
+// value === res
+```
         
 ### extend(object, extensionObject)
 
@@ -261,8 +270,10 @@ Returns new object with:
   * Same references to not changed properties 
   * New references to changed properties
   
+Important edge case: `extend` with empty `extensionObject` saves reference: `object === extend(object, {})`  
+  
 ```javascript
-import extend from 'reupdate/extend'
+import extend from 'reupdate/extend';
 
 const src = {
   name: 'Alex',

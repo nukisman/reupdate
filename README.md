@@ -102,11 +102,12 @@ const myReducer = (state, action) => {
 };
 ``` 
 
-## Performance of React Component.shouldComponentUpdate()
+## Performance of React.Component.shouldComponentUpdate()
 
 As it is written in the documentation of the [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) method:
 ```
-We do not recommend doing deep equality checks or using JSON.stringify() in shouldComponentUpdate(). 
+We do not recommend doing deep equality checks 
+or using JSON.stringify() in shouldComponentUpdate(). 
 It is very inefficient and will harm performance.
 ```
 

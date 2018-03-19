@@ -279,3 +279,7 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ### extendAt(value, pathToObject, extensionObject)
 
 `extend` nested object of value
+
+## Credits
+
+* [Alexander Nuikin](https://github.com/nukisman) - Author

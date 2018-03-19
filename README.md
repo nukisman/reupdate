@@ -1,4 +1,4 @@
-## Selector friendly immutable update
+## Selectors & React.PureComponent friendly immutable update
 
 Reduce updates of your `redux` state means:
 
@@ -121,7 +121,8 @@ class AddressComponent extends Component {
     // return !deepEqual(this.props.address, nextProps.address);
     
     /** With reupdate we can just compare references.
-    * or just use React.PureComponent class shallow-equal implementation of shouldComponentUpdate.
+    * or just use React.PureComponent class 
+    * with shallow-equal implementation of shouldComponentUpdate.
     */
     return this.props.address !== nextProps.address;
   }
@@ -151,6 +152,12 @@ AddressComponent = connect(
 See also [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
 
 ## API
+
+* [set(value, newValue)](#setvalue-newvalue)
+* [setAt(value, path, newValue)](#setatvalue-path-newvalue)
+* [deleteAt(value, path)](#deleteatvalue-path)
+* [extend(object, extensionObject)](#extendobject-extensionobject)
+* [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
 
 ### set(value, newValue)
 

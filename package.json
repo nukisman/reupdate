@@ -8,7 +8,7 @@
     "selector",
     "immutable"
   ],
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "index.js",
   "repository": "https://github.com/nukisman/reupdate",
   "author": "Alexander Nuikin <nukisman@gmail.com>",
@@ -18,7 +18,7 @@
     "build": "npx babel src/ --out-dir build/ -q --source-maps inline && yarn run postbuild",
     "rebuild": "yarn run clean && yarn run build",
     "test": "npx jest -c jest.config.json",
-    "copy": "cp package.json build/ && cp .npmignore build/",
+    "copy": "cp package.json .npmignore README.md CHANGELOG.md build/",
     "postbuild": "yarn run copy && cd build && yarn unlink && yarn link"
   },
   "dependencies": {

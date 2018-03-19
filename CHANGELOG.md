@@ -1,3 +1,7 @@
+## 1.2.5
+
+Documentation fixes
+
 ## 1.2.3
 
 ### Features

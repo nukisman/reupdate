@@ -122,7 +122,7 @@ class AddressComponent extends Component {
     // return !deepEqual(this.props.address, nextProps.address);
     
     /** With reupdate we can just compare references.
-    * or just use React.PureComponent class 
+    * Or just extend class React.PureComponent 
     * with shallow-equal implementation of shouldComponentUpdate.
     */
     return this.props.address !== nextProps.address;
@@ -151,6 +151,19 @@ AddressComponent = connect(
 ```
 
 See also [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+
+## Imports
+
+You can import functions like this:
+```js
+import {set, insert} from 'reupdate';
+```
+
+Or like this (produce smaller bundle file size with webpack or other bundlers):
+```js
+import set from 'reupdate/set';
+import insert from 'reupdate/insert';
+```
 
 ## API
 

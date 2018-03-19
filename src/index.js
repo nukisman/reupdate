@@ -3,19 +3,20 @@
 import set from './set';
 import setAt from './setAt';
 
+import updateAt from './updateAt';
+import deleteAt from './deleteAt';
+
 import extend from './extend';
 import extendAt from './extendAt';
 
-import deleteAt from './deleteAt';
-
-export { set, setAt, extend, extendAt, deleteAt };
+export { set, setAt, updateAt, deleteAt, extend, extendAt };
 
 // TODO: Handle recursive objects
 
 // setAt(src, path, target)
-// extendAt(src, path, ext)
 // deleteAt(src, path) // Equal to setAt(src, path, undefined)
-// TODO: updateAt(src, path, updater)
+// updateAt(src, path, updater)
+// extendAt(src, path, ext)
 
 // TODO: insert(srcArray, at, ...values)
 // TODO: splice(srcArray, deleteCount, ...values)

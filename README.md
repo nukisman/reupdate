@@ -167,12 +167,21 @@ import insert from 'reupdate/insert';
 
 ## API
 
-* [set(value, newValue)](#setvalue-newvalue)
-* [setAt(value, path, newValue)](#setatvalue-path-newvalue)
-* [updateAt(value, path, updater)](#updateatvalue-path-updater)
-* [deleteAt(value, path)](#deleteatvalue-path)
-* [extend(object, extensionObject)](#extendobject-extensionobject)
-* [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
+* Generic functions
+  * [set(value, newValue)](#setvalue-newvalue)
+  * [setAt(value, path, newValue)](#setatvalue-path-newvalue)
+  * [updateAt(value, path, updater)](#updateatvalue-path-updater)
+  * [deleteAt(value, path)](#deleteatvalue-path)
+* Object spcific functions  
+  * [extend(object, extensionObject)](#extendobject-extensionobject)
+  * [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
+* Array specific functions
+  * [push(srcArray, ...values)](#pushsrcarray-values)
+  * [pop(srcArray, n = 1)](#popsrcarray-n-=-1)
+  * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
+  * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
+  * [shift(srcArray, n = 1)](#shiftsrcarray-n-=-1)
+  * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
 
 ### set(value, newValue)
 
@@ -292,6 +301,38 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ### extendAt(value, pathToObject, extensionObject)
 
 `extend` nested object of value
+
+### push(srcArray, ...values)
+
+Important edge case: push empty `values` saves reference: `srcArray === push(srcArray)`
+
+### pop(srcArray, n = 1)
+
+Important edge case: pop 0 items saves reference: `srcArray === pop(srcArray, 0)`
+
+### insert(srcArray, atIndex, ...values)
+
+Important edge case: insert empty `values` at any index saves reference: `srcArray === insert(srcArray, i)`
+
+### splice(srcArray, atIndex, deleteCount, ...values)
+
+Important edge cases: 
+  * Delete 0 and insert empty `values` saves reference: `srcArray === splice(srcArray, i, 0)`
+  * Delete and insert the same `values` saves reference: 
+    ```js
+    import splice from 'reupdate/splice';
+    const srcArray = [a, b, c, d];
+    const atIndex = 1;
+    const res = splice(srcArray, atIndex, 2, b, c);
+    // srcArray === res;
+    ```
+### shift(srcArray, n = 1)
+
+Important edge case: shift 0 items saves reference: `srcArray === shift(srcArray, 0)`
+
+### unshift(srcArray, ...values)
+
+Important edge case: unshift empty `values` saves reference: `srcArray === unshift(srcArray)`
 
 ## Credits
 

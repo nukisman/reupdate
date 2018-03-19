@@ -177,10 +177,10 @@ import insert from 'reupdate/insert';
   * [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
 * Array specific functions
   * [push(srcArray, ...values)](#pushsrcarray-values)
-  * [pop(srcArray, n = 1)](#popsrcarray-n-=-1)
+  * [pop(srcArray, n = 1)](#popsrcarray-n--1)
   * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
-  * [shift(srcArray, n = 1)](#shiftsrcarray-n-=-1)
+  * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
 
 ### set(value, newValue)

@@ -22,7 +22,8 @@
     "postbuild": "yarn run copy && cd build && yarn unlink && yarn link"
   },
   "dependencies": {
-    "lodash.topath": "^4.5.2"
+    "lodash.topath": "^4.5.2",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

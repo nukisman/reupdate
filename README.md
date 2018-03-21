@@ -29,7 +29,7 @@ This rule also must work for nested not changed values as is:
 
 `object-path-immutable` and `immutability-helper` usually expect that you know what is the difference from `src` and `value` and some times returns reference for `value` despite it is deep equal to `src`. As a result we have extra recalculations of selectors and/or re-rendering of components.
 
-In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! See examples below!
+In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! See [examples](#examples)!
 
 ## Quick usage
 
@@ -85,24 +85,31 @@ res = extend(src, {
 
 ## Examples
 
-* [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/selector.test.js)
+* [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/createSelector.test.js)  
 * [redux + reupdate: avoid extra state changes (working test!)](https://github.com/nukisman/reupdate/blob/master/src/redux.test.js)
+
+  Also comparation tests for:
+  * [object-path-immutable](https://www.npmjs.com/package/object-path-immutable)
+  * [immutablity-helper](https://www.npmjs.com/package/immutablity-helper)
 * [react + reupdate: avoid extra re-rendering](https://github.com/nukisman/reupdate/blob/master/doc/react.md)
 
 ## Install
 
-`yarn add reupdate` or `npm i reupdate`
+`yarn add reupdate` 
+or 
+`npm i reupdate`
 
 ## Imports
 
 You can import functions like this:
 ```js
-import {set, insert} from 'reupdate';
+import {set, insert, createSelector} from 'reupdate';
 ```
 Or like this (produces smaller bundle file size with webpack or other bundlers):
 ```js
 import set from 'reupdate/set';
 import insert from 'reupdate/insert';
+import createSelector from 'reupdate/createSelector';
 ```
 
 ## API

@@ -1,13 +1,34 @@
 ## Selectors & React.PureComponent friendly immutable update
 
-Reduce updates of your `redux` state means:
+`reupdate` can help you to:
+  * Reduce recalculations in existing `reselect` selectors used redux state: just create reducers with `reupdate`
+  * Even more reduce recalculations with `reupdate` selectors (with same [API](#createselectorinputselectors--inputselectors-resultfunc) as `reselect`)
+  * Reduce re-rendering of your `react` components
 
-* Reduce recalculations of your `reselect`/`re-reselect` selectors
-* Reduce re-rendering of your `react` components
+### Examples
+
+* [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/createSelector.test.js)  
+* [redux + reupdate: avoid extra state changes (working test!)](https://github.com/nukisman/reupdate/blob/master/src/redux.test.js)
+
+  Also comparation tests for:
+  * [object-path-immutable](https://www.npmjs.com/package/object-path-immutable)
+  * [immutability-helper](https://www.npmjs.com/package/immutability-helper)
+* [react + reupdate: avoid extra re-rendering](https://github.com/nukisman/reupdate/blob/master/doc/react.md)
 
 ### Note
 
 `reupdate` has no dependencies to `redux` and `react`, etc. so you can use it with other frameworks.
+
+## Contents
+
+* [Motivation](#motivation)
+* [Design Rule](#design-rule)
+* [Difference from `object-path-immutable` and `immutability-helper`](#difference-from-object-path-immutable-and-immutability-helper) 
+* [Install](#install)
+* [Quick usage](#quick-usage)
+* [Imports](#imports)
+* [API](#api)
+* [Credits](#credits)
 
 ## Motivation
 
@@ -15,7 +36,7 @@ Typically, the state changes less frequently than it is read.
 
 To avoid extra re-evaluations (and re-rendering) with `redux`, `reselect`, `react` and others we should return same reference to the (maybe nested) state when it was updated but actually not changed (some isDeepEqual(state, nextState) gives true). 
 
-## Rule 
+## Design rule
 
 If your update of `src` value do not change it (in sense of deep equality) then `result === src` must give `true`:   
 
@@ -30,6 +51,12 @@ This rule also must work for nested not changed values as is:
 `object-path-immutable` and `immutability-helper` usually expect that you know what is the difference from `src` and `value` and some times returns reference for `value` despite it is deep equal to `src`. As a result we have extra recalculations of selectors and/or re-rendering of components.
 
 In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! See [examples](#examples)!
+
+## Install
+
+```yarn add reupdate``` 
+or 
+```npm i reupdate```
 
 ## Quick usage
 
@@ -83,29 +110,13 @@ res = extend(src, {
 // res.info.coord === src.info.coord 
 ```
 
-## Examples
-
-* [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/createSelector.test.js)  
-* [redux + reupdate: avoid extra state changes (working test!)](https://github.com/nukisman/reupdate/blob/master/src/redux.test.js)
-
-  Also comparation tests for:
-  * [object-path-immutable](https://www.npmjs.com/package/object-path-immutable)
-  * [immutablity-helper](https://www.npmjs.com/package/immutablity-helper)
-* [react + reupdate: avoid extra re-rendering](https://github.com/nukisman/reupdate/blob/master/doc/react.md)
-
-## Install
-
-`yarn add reupdate` 
-or 
-`npm i reupdate`
-
 ## Imports
 
 You can import functions like this:
 ```js
 import {set, insert, createSelector} from 'reupdate';
 ```
-Or like this (produces smaller bundle file size with webpack or other bundlers):
+Or like this (to reduce bundle size with webpack or other bundlers):
 ```js
 import set from 'reupdate/set';
 import insert from 'reupdate/insert';

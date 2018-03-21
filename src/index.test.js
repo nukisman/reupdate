@@ -15,3 +15,6 @@ import './insert.test';
 import './splice.test';
 import './shift.test';
 import './unshift.test';
+
+import './createSelector.test';
+import './redux.test';

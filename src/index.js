@@ -16,6 +16,8 @@ import splice from './splice';
 import shift from './shift';
 import unshift from './unshift';
 
+import createSelector from './createSelector';
+
 export {
   set,
   setAt,
@@ -28,7 +30,8 @@ export {
   insert,
   splice,
   shift,
-  unshift
+  unshift,
+  createSelector
 };
 
 // TODO: Handle recursive objects

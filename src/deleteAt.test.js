@@ -23,7 +23,7 @@ describe('Delete at', () => {
   });
 
   // test('Delete at nested undefined', () => {
-  //   // todo: Create intermediate objects/arrays if necessary
+  //   // todo: Ignore undefined rest of path
   //   const state = {
   //     a: true,
   //     b: { x: 123 },

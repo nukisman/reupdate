@@ -1,6 +1,6 @@
 /* Created by Alexander Nuikin (nukisman@gmail.com). */
 
-import toPath from 'lodash/toPath';
+import toPath from 'lodash.topath';
 
 import set from './set';
 import getAt from './getAt';

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+Remove extra `lodash/*` dependencies
+
 ## 1.3.1
 
 Array specific functions

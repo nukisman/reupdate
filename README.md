@@ -54,9 +54,13 @@ In such cases `reupdate` returns reference to `src`, so it prevents extra recalc
 
 ## Install
 
-```yarn add reupdate``` 
+```
+yarn add reupdate
+``` 
 or 
-```npm i reupdate```
+```
+npm i reupdate
+```
 
 ## Quick usage
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0
+
+Features:
+* New `createSelector` function
+* New docs and tests:
+  * reupdate vs reselect
+  * redux + reupdate
+  * react + reupdate
+
 ## 1.3.2
 
 Remove extra `lodash/*` dependencies

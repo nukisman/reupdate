@@ -7,7 +7,7 @@ Reduce updates of your `redux` state means:
 
 ### Note
 
-`reupdate` has no dependencies to `redux`, `reselect`, `react`, etc. so you can use it with other frameworks.
+`reupdate` has no dependencies to `redux` and `react`, etc. so you can use it with other frameworks.
 
 ## Motivation
 
@@ -29,128 +29,69 @@ This rule also must work for nested not changed values as is:
 
 `object-path-immutable` and `immutability-helper` usually expect that you know what is the difference from `src` and `value` and some times returns reference for `value` despite it is deep equal to `src`. As a result we have extra recalculations of selectors and/or re-rendering of components.
 
-In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! 
+In such cases `reupdate` returns reference to `src`, so it prevents extra recalculations and re-rendering. Profit! See examples below!
 
-## Problem
+## Quick usage
 
-Using native JS syntax we always create new references:  
-```javascript
-const myReducer = (state, action) => {  
-  /* Imagine current state is: */
-  state = {wip: true, data: [1, 2, 3]};
-  
-  /* Set new state: 
-   * Create new object 
-   * |=> reselect will recompute, react will re-render 
-   */
-  return {wip: true, data: [1, 2, 3]};
-  
-  /* Set new state (wip only changed): 
-   * Create new object 
-   * |=> reselect will recompute, react will re-render 
-   */
-  return {wip: false, data: [1, 2, 3]};    
-  
-  /* Extend existing state: 
-   * Create new object 
-   * |=> reselect will recompute, react will re-render 
-   */
-  return {...state, wip: true, data: [1, 2, 3]};
-  
-  /* Extend existing state (wip only changed): 
-   * Create new object 
-   * |=> reselect will recompute, react will re-render 
-   */
-  return {...state, wip: false, data: [1, 2, 3]};
-};
-``` 
+```js
+import {set, setAt, extend} from 'reupdate';
+import cloneDeep from 'lodash/cloneDeep';
 
-## Solution
-
-Use `set` and `extend` functions in your reducers:
-
-```javascript
-import {set, extend} from 'reupdate';
-
-const myReducer = (state, action) => {  
-  /* Imagine current state is: */
-  state = {wip: true, data: [1, 2, 3]};
-  
-  /* Set new state: 
-   * Return same reference to the state 
-   * because nothing was actually changed 
-   */
-  return set(state, {wip: true, data: [1, 2, 3]}); // state   
-  
-  /* Set new state (wip only changed): 
-   * Return new object with .data references to original state.data 
-   * because it was not actually changed 
-   */
-  return set(state, {wip: false, data: [1, 2, 3]}); // {wip: false, data: state.data}  
-  
-  /* Extend existing state: 
-   * Return same reference to the state 
-   * because nothing was actually changed 
-   */
-  return extend(state, {wip: true, data: [1, 2, 3]}); // state
-  
-  /* Extend existing state (wip only changed): 
-   * Return new object with .data references to original state.data 
-   * because it was not actually changed 
-   */
-  return extend(state, {wip: false, data: [1, 2, 3]}); // {wip: false, data: state.data}
-};
-``` 
-
-## Performance of React.Component.shouldComponentUpdate()
-
-As it is written in the documentation of the [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) method:
-```
-We do not recommend doing deep equality checks 
-or using JSON.stringify() in shouldComponentUpdate(). 
-It is very inefficient and will harm performance.
-```
-
-```jsx harmony
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import deepEqual from 'lodash/isEqual';
-
-class AddressComponent extends Component {
-  shouldComponentUpdate(nextProps) {
-    /** Without reupdate we should use deep equal */
-    // return !deepEqual(this.props.address, nextProps.address);
-    
-    /** With reupdate we can just compare references.
-    * Or just extend class React.PureComponent 
-    * with shallow-equal implementation of shouldComponentUpdate.
-    */
-    return this.props.address !== nextProps.address;
-  }
-  render() {
-    const {country, city, street, postalCode} = this.props.address;
-    return (
-      <div>
-        country
-        <br/>
-        city
-        <br/>
-        street
-        <br/>
-        postalCode
-      </div>
-    );
+const src = {
+  a: {
+    b: {
+      c: 'c',
+      d: 'd'
+    },
+    e: 'e',
+    f: [
+      {f0: 'f0'},
+      {f1: 'f1'},
+      {f2: 'f2'}
+    ]
+  },
+  info: {
+    name: 'smth',
+    coord: {x: 1, y: 2}
   }
 }
 
-AddressComponent = connect(
-  state => ({
-    address: state.user.bestFriend.address
-  })
-)(AddressComponent);
+let res;
+res = set(src, src); // res === src
+res = set(src, cloneDeep(src)); // res === src
+
+res = setAt(src, 'a.f[1].f1', 123);
+// res.a !== src.a
+// res.a.f !== src.a.f
+// res.a.f[1].f1 !== src.a.f[1].f1
+/** But following references were saved!: */
+// res.a.b === src.a.b
+// res.a.e === src.a.e
+// res.a.f[0] === src.a.f[0]
+// res.a.f[2] === src.a.f[2]
+
+res = extend(src, { 
+  info: {
+    name: 'New Name', 
+    coord: {x: 1, y: 2} // coord not actually changed 
+  }
+});
+// res.info !== src.info
+// res.info.name !== src.info.name
+/** But following references were saved!: */
+// res.a === src.a
+// res.info.coord === src.info.coord 
 ```
 
-See also [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+## Examples
+
+* [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/selector.test.js)
+* [redux + reupdate: avoid extra state changes (working test!)](https://github.com/nukisman/reupdate/blob/master/src/redux.test.js)
+* [react + reupdate: avoid extra re-rendering](https://github.com/nukisman/reupdate/blob/master/doc/react.md)
+
+## Install
+
+`yarn add reupdate` or `npm i reupdate`
 
 ## Imports
 
@@ -158,8 +99,7 @@ You can import functions like this:
 ```js
 import {set, insert} from 'reupdate';
 ```
-
-Or like this (produce smaller bundle file size with webpack or other bundlers):
+Or like this (produces smaller bundle file size with webpack or other bundlers):
 ```js
 import set from 'reupdate/set';
 import insert from 'reupdate/insert';
@@ -182,6 +122,8 @@ import insert from 'reupdate/insert';
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
+* Selectors related
+  * [createSelector(...inputSelectors | [inputSelectors], resultFunc)](#createselectorinputselectors--inputselectors-resultfunc)  
 
 ### set(value, newValue)
 
@@ -344,6 +286,10 @@ Important edge case: shift 0 items saves reference: `srcArray === shift(srcArray
 ### unshift(srcArray, ...values)
 
 Important edge case: unshift empty `values` saves reference: `srcArray === unshift(srcArray)`
+
+### createSelector(...inputSelectors | [inputSelectors], resultFunc)
+
+Wrapper for [reselect.createSelector](https://github.com/reactjs/reselect#createselectorinputselectors--inputselectors-resultfunc) 
 
 ## Credits
 

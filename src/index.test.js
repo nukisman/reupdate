@@ -17,4 +17,5 @@ import './shift.test';
 import './unshift.test';
 
 import './createSelector.test';
+import './createStructuredSelector.test';
 import './redux.test';

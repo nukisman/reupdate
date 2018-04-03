@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0
+
+Features:
+* New `createStructuredSelector` function
+
 ## 1.4.3
 
 Features:

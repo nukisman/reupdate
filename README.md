@@ -145,7 +145,9 @@ import createSelector from 'reupdate/createSelector';
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
 * Selectors related
-  * [createSelector(...inputSelectors | [inputSelectors], resultFunc)](#createselectorinputselectors--inputselectors-resultfunc)  
+  * [createSelector(...inputSelectors | [inputSelectors], resultFunc)](#createselectorinputselectors--inputselectors-resultfunc)
+  * [createStructuredSelector({inputSelectors}, selectorCreator = createSelector)](#createstructuredselectorinputselectors-selectorcreator--createselector)
+
 
 ### set(value, newValue)
 
@@ -311,7 +313,11 @@ Important edge case: unshift empty `values` saves reference: `srcArray === unshi
 
 ### createSelector(...inputSelectors | [inputSelectors], resultFunc)
 
-Wrapper for [reselect.createSelector](https://github.com/reactjs/reselect#createselectorinputselectors--inputselectors-resultfunc) 
+Wrapper for [reselect.createSelector](https://github.com/reactjs/reselect#createselectorinputselectors--inputselectors-resultfunc)
+
+### createStructuredSelector({inputSelectors}, selectorCreator = createSelector)
+
+Wrapper for [reselect.createStructuredSelector](https://github.com/reactjs/reselect#createstructuredselectorinputselectors-selectorcreator--createselector)
 
 ## Credits
 

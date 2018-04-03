@@ -17,6 +17,7 @@ import shift from './shift';
 import unshift from './unshift';
 
 import createSelector from './createSelector';
+import createStructuredSelector from './createStructuredSelector';
 
 export {
   set,
@@ -31,7 +32,8 @@ export {
   splice,
   shift,
   unshift,
-  createSelector
+  createSelector,
+  createStructuredSelector
 };
 
 // TODO: Handle recursive objects
@@ -55,3 +57,5 @@ export {
 // TODO: popAt(src, pathToArray, value)
 // TODO: shiftAt(src, pathToArray)
 // TODO: unshiftAt(src, pathToArray, value)
+
+// TODO: createPathSelector(...path) |=> createSelector(value => value, value => getAt(value, path))

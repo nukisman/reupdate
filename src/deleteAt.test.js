@@ -22,16 +22,24 @@ describe('Delete at', () => {
     expect(res).toBe(state);
   });
 
-  // test('Delete at nested undefined', () => {
-  //   // todo: Ignore undefined rest of path
-  //   const state = {
-  //     a: true,
-  //     b: { x: 123 },
-  //     c: undefined
-  //   };
-  //   const res = deleteAt(state, 'c[0].foo');
-  //   expect(res).toBe(state);
-  // });
+  test('Delete at nested undefined', () => {
+    const state = {
+      a: true,
+      b: { x: 123 },
+      c: undefined,
+      d: []
+    };
+    let res;
+
+    res = deleteAt(state, 'c[0].foo');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'a[0].foo');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'd.foo.bar');
+    expect(res).toBe(state);
+  });
 
   test('Delete at wip', () => {
     const state = {

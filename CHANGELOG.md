@@ -1,6 +1,14 @@
 # Changelog
 
-## 1.5.0
+## 1.5.2
+
+Fixes:
+* `deleteAt` with wrong path just return src value now
+
+Performance:
+* Avoid some recursions
+
+## 1.5.1
 
 Features:
 * New `createStructuredSelector` function

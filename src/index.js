@@ -58,4 +58,4 @@ export {
 // TODO: shiftAt(src, pathToArray)
 // TODO: unshiftAt(src, pathToArray, value)
 
-// TODO: createPathSelector(...path) |=> createSelector(value => value, value => getAt(value, path))
+// todo: createPathSelector(...path) |=> createSelector(value => value, value => getAt(value, path))

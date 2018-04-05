@@ -1,12 +1,23 @@
 # Changelog
 
+## 1.5.3
+
+Fixes:
+* Handle intermediate null values paths
+
+Performance:
+* Avoid some recursions (replaceAt)
+
+Doc:
+* Running tests
+
 ## 1.5.2
 
 Fixes:
 * `deleteAt` with wrong path just return src value now
 
 Performance:
-* Avoid some recursions
+* Avoid some recursions (getAt)
 
 ## 1.5.1
 

@@ -2,7 +2,7 @@
 
 import pop from './pop';
 
-describe('Pop', () => {
+describe('pop', () => {
   test('n = 0', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const res = pop(state, 0);

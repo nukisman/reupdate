@@ -2,7 +2,7 @@
 
 import splice from './splice';
 
-describe('Splice', () => {
+describe('splice', () => {
   test('Delete 0 and insert empty', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const atIndex = 3;

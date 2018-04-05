@@ -6,6 +6,7 @@ import set from './set';
 import getAt from './getAt';
 import replaceAt from './replaceAt';
 
+// todo: Option: Create intermediate objects
 export default (src, path, target) => {
   const pathArray = toPath(path);
   const valueAt = getAt(src, pathArray);

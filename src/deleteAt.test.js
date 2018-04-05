@@ -2,7 +2,7 @@
 
 import deleteAt from './deleteAt';
 
-describe('Delete at', () => {
+describe('deleteAt', () => {
   test('Delete at implicit undefined', () => {
     const state = {
       a: true,

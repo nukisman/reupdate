@@ -2,7 +2,7 @@
 
 import unshift from './unshift';
 
-describe('Unshift', () => {
+describe('unshift', () => {
   test('Empty head', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const res = unshift(state);

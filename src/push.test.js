@@ -2,7 +2,7 @@
 
 import push from './push';
 
-describe('Push', () => {
+describe('push', () => {
   test('Empty tail', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const res = push(state);

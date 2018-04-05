@@ -2,7 +2,7 @@
 
 import insert from './insert';
 
-describe('Insert', () => {
+describe('insert', () => {
   test('Empty tail', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const at = 3;

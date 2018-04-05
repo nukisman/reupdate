@@ -141,7 +141,7 @@ const immutabilityHelperReducer = (state, action) => {
 };
 
 const runTestSuite = (label, reducer) => {
-  describe(`redux: ${label}`, () => {
+  describe(label, () => {
     test('setName: equal', () => {
       const state = createState();
       /* Note: name not actually changed */
@@ -210,7 +210,9 @@ const runTestSuite = (label, reducer) => {
   });
 };
 
-runTestSuite('default', defaultReducer);
-runTestSuite('reupdate', reupdateReducer);
-runTestSuite('object-path-immutable', objectPathImmutableReducer);
-runTestSuite('immutability-helper', immutabilityHelperReducer);
+describe('Redux', () => {
+  runTestSuite('default', defaultReducer);
+  runTestSuite('reupdate', reupdateReducer);
+  runTestSuite('object-path-immutable', objectPathImmutableReducer);
+  runTestSuite('immutability-helper', immutabilityHelperReducer);
+});

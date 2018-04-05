@@ -2,7 +2,7 @@
 
 import extend from './extend';
 
-describe('Extend object', () => {
+describe('extend', () => {
   test('Empty', () => {
     const state = {
       wip: true,

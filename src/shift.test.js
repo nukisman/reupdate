@@ -2,7 +2,7 @@
 
 import shift from './shift';
 
-describe('Shift', () => {
+describe('shift', () => {
   test('n = 0', () => {
     const state = [1, 2, 3, { a: 4 }, { b: 5 }];
     const res = shift(state, 0);

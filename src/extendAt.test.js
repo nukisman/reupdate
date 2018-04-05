@@ -2,7 +2,7 @@
 
 import extendAt from './extendAT';
 
-describe('Extend object', () => {
+describe('extendAt', () => {
   test('Extend with empty at root', () => {
     const state = {
       wip: true,

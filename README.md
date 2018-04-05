@@ -28,6 +28,7 @@
 * [Quick usage](#quick-usage)
 * [Imports](#imports)
 * [API](#api)
+* [Tests](#tests)
 * [Credits](#credits)
 
 ## Motivation
@@ -318,6 +319,14 @@ Wrapper for [reselect.createSelector](https://github.com/reactjs/reselect#create
 ### createStructuredSelector({inputSelectors}, selectorCreator = createSelector)
 
 Wrapper for [reselect.createStructuredSelector](https://github.com/reactjs/reselect#createstructuredselectorinputselectors-selectorcreator--createselector)
+
+## Tests
+
+Run `yarn test index` to check that `reupdate` saves references.
+
+Run `yarn test object-path-immutable` to check that `object-path-immutable` NOT saves references (some tests will fail).
+
+Run `yarn test immutability-helper` to check that `immutability-helper` NOT saves references (some tests will fail).
 
 ## Credits
 

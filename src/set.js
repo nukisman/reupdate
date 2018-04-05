@@ -1,5 +1,6 @@
 /* Created by Alexander Nuikin (nukisman@gmail.com). */
 
+// todo: Loop based implementation
 const set = (src, target) => {
   if (src === target) return src;
   else {

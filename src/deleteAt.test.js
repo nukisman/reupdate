@@ -22,22 +22,43 @@ describe('deleteAt', () => {
     expect(res).toBe(state);
   });
 
-  test('Delete at nested undefined', () => {
+  test('Delete at wrong path', () => {
     const state = {
       a: true,
-      b: { x: 123 },
+      b: {},
       c: undefined,
-      d: []
+      d: [],
+      e: null,
+      f: {
+        g: {
+          h: 123
+        }
+      }
     };
     let res;
-
-    res = deleteAt(state, 'c[0].foo');
-    expect(res).toBe(state);
 
     res = deleteAt(state, 'a[0].foo');
     expect(res).toBe(state);
 
+    res = deleteAt(state, 'b[0].foo');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'c[0].foo');
+    expect(res).toBe(state);
+
     res = deleteAt(state, 'd.foo.bar');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'e.foo.bar');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'f.g.h.i');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'f.g.h.i.j');
+    expect(res).toBe(state);
+
+    res = deleteAt(state, 'f.g.h.i.j.k');
     expect(res).toBe(state);
   });
 

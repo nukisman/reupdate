@@ -3,15 +3,15 @@
 import set from './set';
 import getAt from './getAt';
 
-const replaceAt = (src, path, target) => {
+const replaceAt = (src, path, targetOrUpdater) => {
   // console.log('replaceAt', { src, path, target });
   if (path.length === 0) {
-    return set(src, target);
+    return setOrUpdate(src, targetOrUpdater);
   } else {
     const parent = getAt(src, path.slice(0, -1));
     const key = path[path.length - 1];
     const value = parent ? parent[key] : undefined;
-    const newValue = set(value, target);
+    const newValue = setOrUpdate(value, targetOrUpdater);
     // console.log({ parent, key, value, newValue });
 
     if (newValue === value) {
@@ -34,6 +34,13 @@ const replaceAt = (src, path, target) => {
       return values[0];
     }
   }
+};
+
+const setOrUpdate = (src, targetOrUpdater) => {
+  if (typeof targetOrUpdater === 'function') {
+    const target = targetOrUpdater(src);
+    return set(src, target);
+  } else return set(src, targetOrUpdater);
 };
 
 const setNew = (src, key, value) => {

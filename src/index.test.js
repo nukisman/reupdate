@@ -10,6 +10,8 @@ import './extend.test';
 import './extendAt.test';
 
 import './push.test';
+import './pushAt.test';
+
 import './pop.test';
 import './insert.test';
 import './splice.test';

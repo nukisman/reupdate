@@ -140,6 +140,7 @@ import createSelector from 'reupdate/createSelector';
   * [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
 * Array specific functions
   * [push(srcArray, ...values)](#pushsrcarray-values)
+  * [pushAt(src, pathToArray, ...values)](#pushatsrc-pathtoarray-values)
   * [pop(srcArray, n = 1)](#popsrcarray-n--1)
   * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
@@ -283,6 +284,17 @@ expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ### push(srcArray, ...values)
 
 Important edge case: push empty `values` saves reference: `srcArray === push(srcArray)`
+
+### pushAt(src, pathToArray, ...values)
+
+Example:
+```javascript
+const state = {a: {b: [{x: 1}, {y: 2}]}}
+const newState = pushAt(state, 'a.b', {z:3}, {w: 4})
+// newState = {a: {b: [{x: 1}, {y: 2}, {z:3}, {w: 4}]}}
+```
+
+Important edge case: push empty `values` saves reference: `src === pushAt(src, pathToArray)`
 
 ### pop(srcArray, n = 1)
 

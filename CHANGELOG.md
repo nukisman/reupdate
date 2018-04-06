@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.4
+
+Features:
+* New `pushAt` function
+
 ## 1.5.3
 
 Fixes:

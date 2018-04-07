@@ -16,7 +16,9 @@ import pop from './pop';
 import insert from './insert';
 import splice from './splice';
 import shift from './shift';
+
 import unshift from './unshift';
+import unshiftAt from './unshiftAt';
 
 import createSelector from './createSelector';
 import createStructuredSelector from './createStructuredSelector';
@@ -35,6 +37,7 @@ export {
   splice,
   shift,
   unshift,
+  unshiftAt,
   createSelector,
   createStructuredSelector
 };

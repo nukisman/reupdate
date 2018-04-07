@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.5.4
+## 1.7.0
+
+Features:
+* New `unshiftAt` function
+
+## 1.5.4 (should be 1.6.0)
 
 Features:
 * New `pushAt` function

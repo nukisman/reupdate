@@ -146,6 +146,7 @@ import createSelector from 'reupdate/createSelector';
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
+  * [unshiftAt(src, pathToArray, ...values)](#unshiftatsrc-pathtoarray-values)
 * Selectors related
   * [createSelector(...inputSelectors | [inputSelectors], resultFunc)](#createselectorinputselectors--inputselectors-resultfunc)
   * [createStructuredSelector({inputSelectors}, selectorCreator = createSelector)](#createstructuredselectorinputselectors-selectorcreator--createselector)
@@ -294,7 +295,7 @@ const newState = pushAt(state, 'a.b', {z:3}, {w: 4})
 // newState = {a: {b: [{x: 1}, {y: 2}, {z:3}, {w: 4}]}}
 ```
 
-Important edge case: push empty `values` saves reference: `src === pushAt(src, pathToArray)`
+Important edge case: pushAt empty `values` saves reference: `src === pushAt(src, pathToArray)`
 
 ### pop(srcArray, n = 1)
 
@@ -323,6 +324,17 @@ Important edge case: shift 0 items saves reference: `srcArray === shift(srcArray
 ### unshift(srcArray, ...values)
 
 Important edge case: unshift empty `values` saves reference: `srcArray === unshift(srcArray)`
+
+### unshiftAt(src, pathToArray, ...values)
+
+Example:
+```javascript
+const state = {a: {b: [{x: 1}, {y: 2}]}}
+const newState = pushAt(state, 'a.b', {z:3}, {w: 4})
+// newState = {a: {b: [{z:3}, {w: 4}, {x: 1}, {y: 2}]}}
+```
+
+Important edge case: unshiftAt empty `values` saves reference: `src === unshiftAt(src, pathToArray)`
 
 ### createSelector(...inputSelectors | [inputSelectors], resultFunc)
 

@@ -16,7 +16,9 @@ import './pop.test';
 import './insert.test';
 import './splice.test';
 import './shift.test';
+
 import './unshift.test';
+import './unshiftAt.test';
 
 import './createSelector.test';
 import './createStructuredSelector.test';

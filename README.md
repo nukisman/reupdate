@@ -10,7 +10,7 @@
 * [reupdate vs reselect: avoid extra recalculations (working test!)](https://github.com/nukisman/reupdate/blob/master/src/createSelector.test.js)  
 * [redux + reupdate: avoid extra state changes (working test!)](https://github.com/nukisman/reupdate/blob/master/src/redux.test.js)
 
-  Also comparation tests for:
+  Also includes comparation tests for:
   * [object-path-immutable](https://www.npmjs.com/package/object-path-immutable)
   * [immutability-helper](https://www.npmjs.com/package/immutability-helper)
 * [react + reupdate: avoid extra re-rendering](https://github.com/nukisman/reupdate/blob/master/doc/react.md)

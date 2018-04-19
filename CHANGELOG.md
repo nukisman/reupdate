@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.1
+
+Fixes:
+* Fix build bug with unresolved ./getAt and ./replaceAt
+
 ## 1.7.0
 
 Features:

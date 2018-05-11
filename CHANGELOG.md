@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0
+
+Features:
+* New `popAt` function
+
 ## 1.7.1
 
 Fixes:

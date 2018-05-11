@@ -142,6 +142,7 @@ import createSelector from 'reupdate/createSelector';
   * [push(srcArray, ...values)](#pushsrcarray-values)
   * [pushAt(src, pathToArray, ...values)](#pushatsrc-pathtoarray-values)
   * [pop(srcArray, n = 1)](#popsrcarray-n--1)
+  * [popAt(srcArray, pathToArray, n = 1)](#popatsrcarray-pathtoarray-n--1)
   * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
@@ -300,6 +301,10 @@ Important edge case: pushAt empty `values` saves reference: `src === pushAt(src,
 ### pop(srcArray, n = 1)
 
 Important edge case: pop 0 items saves reference: `srcArray === pop(srcArray, 0)`
+
+### popAt(srcArray, pathToArray, n = 1)
+
+Important edge case: pop 0 items saves reference: `srcArray === popAt(srcArray, 'a.b', 0)`
 
 ### insert(srcArray, atIndex, ...values)
 

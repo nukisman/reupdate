@@ -13,6 +13,8 @@ import './push.test';
 import './pushAt.test';
 
 import './pop.test';
+import './popAt.test';
+
 import './insert.test';
 import './splice.test';
 import './shift.test';

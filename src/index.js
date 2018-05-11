@@ -13,6 +13,8 @@ import push from './push';
 import pushAt from './pushAt';
 
 import pop from './pop';
+import popAt from './popAt';
+
 import insert from './insert';
 import splice from './splice';
 import shift from './shift';
@@ -33,6 +35,7 @@ export {
   push,
   pushAt,
   pop,
+  popAt,
   insert,
   splice,
   shift,

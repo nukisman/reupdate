@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.0
+
+Features:
+* New `shiftAt` function
+* Fix some tests
+
 ## 1.8.0
 
 Features:

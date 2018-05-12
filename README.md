@@ -142,10 +142,11 @@ import createSelector from 'reupdate/createSelector';
   * [push(srcArray, ...values)](#pushsrcarray-values)
   * [pushAt(src, pathToArray, ...values)](#pushatsrc-pathtoarray-values)
   * [pop(srcArray, n = 1)](#popsrcarray-n--1)
-  * [popAt(srcArray, pathToArray, n = 1)](#popatsrcarray-pathtoarray-n--1)
+  * [popAt(src, pathToArray, n = 1)](#popatsrc-pathtoarray-n--1)
   * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
+  * [shiftAt(src, pathToArray, n = 1)](#shiftatsrc-pathtoarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
   * [unshiftAt(src, pathToArray, ...values)](#unshiftatsrc-pathtoarray-values)
 * Selectors related
@@ -302,9 +303,9 @@ Important edge case: pushAt empty `values` saves reference: `src === pushAt(src,
 
 Important edge case: pop 0 items saves reference: `srcArray === pop(srcArray, 0)`
 
-### popAt(srcArray, pathToArray, n = 1)
+### popAt(src, pathToArray, n = 1)
 
-Important edge case: pop 0 items saves reference: `srcArray === popAt(srcArray, 'a.b', 0)`
+Important edge case: pop 0 items saves reference: `src === popAt(src, 'a.b', 0)`
 
 ### insert(srcArray, atIndex, ...values)
 
@@ -325,6 +326,10 @@ Important edge cases:
 ### shift(srcArray, n = 1)
 
 Important edge case: shift 0 items saves reference: `srcArray === shift(srcArray, 0)`
+
+### shiftAt(src, pathToArray, n = 1)
+
+Important edge case: shift 0 items saves reference: `src === shift(src, 'a.b', 0)`
 
 ### unshift(srcArray, ...values)
 

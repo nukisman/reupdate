@@ -3,7 +3,7 @@
 import popAt from './popAt';
 
 describe('popAt', () => {
-  test('Empty tail', () => {
+  test('n = 0', () => {
     const state = {
       a: { b: [1, 2, 3, { a: 4 }, { b: 5 }] }
     };
@@ -11,7 +11,29 @@ describe('popAt', () => {
     expect(res).toBe(state);
   });
 
-  test('Not empty tail', () => {
+  test('n = 1 by default', () => {
+    const state = {
+      a: { b: [1, 2, 3, { a: 4 }, { b: 5 }] }
+    };
+    const nextState = {
+      a: { b: [1, 2, 3, { a: 4 }] }
+    };
+    const res = popAt(state, 'a.b');
+    expect(res).toEqual(nextState);
+  });
+
+  test('n = 1', () => {
+    const state = {
+      a: { b: [1, 2, 3, { a: 4 }, { b: 5 }] }
+    };
+    const nextState = {
+      a: { b: [1, 2, 3, { a: 4 }] }
+    };
+    const res = popAt(state, 'a.b', 1);
+    expect(res).toEqual(nextState);
+  });
+
+  test('n > 1', () => {
     const state = {
       a: { b: [1, 2, 3, { a: 4 }, { b: 5 }, { a: 6 }, { b: 7 }] }
     };

@@ -8,7 +8,7 @@
     "selector",
     "immutable"
   ],
-  "version": "1.8.0",
+  "version": "1.9.0",
   "main": "index.js",
   "repository": "https://github.com/nukisman/reupdate",
   "author": "Alexander Nuikin <nukisman@gmail.com>",

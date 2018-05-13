@@ -145,6 +145,7 @@ import createSelector from 'reupdate/createSelector';
   * [popAt(src, pathToArray, n = 1)](#popatsrc-pathtoarray-n--1)
   * [insert(srcArray, atIndex, ...values)](#insertsrcarray-atindex-values)
   * [splice(srcArray, atIndex, deleteCount, ...values)](#splicesrcarray-atindex-deletecount-values)
+  * [spliceAt(src, pathToArray, atIndex, deleteCount, ...values)](#spliceatsrc-pathtoarray-atindex-deletecount-values)
   * [shift(srcArray, n = 1)](#shiftsrcarray-n--1)
   * [shiftAt(src, pathToArray, n = 1)](#shiftatsrc-pathtoarray-n--1)
   * [unshift(srcArray, ...values)](#unshiftsrcarray-values)
@@ -323,6 +324,13 @@ Important edge cases:
     const res = splice(srcArray, atIndex, 2, b, c);
     // srcArray === res;
     ```
+
+### spliceAt(src, pathToArray, atIndex, deleteCount, ...values)
+
+Important edge cases:
+  * Delete 0 and insert empty `values` saves reference: `src === spliceAt(src, 'a.b', i, 0)`
+  * Delete and insert the same `values` saves reference (see `splice` example)
+
 ### shift(srcArray, n = 1)
 
 Important edge case: shift 0 items saves reference: `srcArray === shift(srcArray, 0)`

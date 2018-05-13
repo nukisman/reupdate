@@ -16,7 +16,9 @@ import pop from './pop';
 import popAt from './popAt';
 
 import insert from './insert';
+
 import splice from './splice';
+import spliceAt from './spliceAt';
 
 import shift from './shift';
 import shiftAt from './shiftAt';
@@ -40,6 +42,7 @@ export {
   popAt,
   insert,
   splice,
+  spliceAt,
   shift,
   shiftAt,
   unshift,
@@ -64,10 +67,10 @@ export {
 
 // TODO: Create intermediate objects/arrays if necessary
 // TODO: insertAt(src, pathToArray, at, ...values)
-// TODO: spliceAt(srcArray, pathToArray, deleteCount, ...values)
+// spliceAt(srcArray, pathToArray, deleteCount, ...values)
 // pushAt(src, pathToArray, ...values)
 // popAt(src, pathToArray, n = 1)
-// TODO: shiftAt(src, pathToArray, n = 1)
+// shiftAt(src, pathToArray, n = 1)
 // unshiftAt(src, pathToArray, ...values)
 
 // todo: createPathSelector(...path) |=> createSelector(value => value, value => getAt(value, path))

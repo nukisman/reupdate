@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.10.1
+
+Fixes:
+* Fix imports
+
+## 1.10.0
+
+Features:
+* New `spliceAt` function
+
 ## 1.9.0
 
 Features:

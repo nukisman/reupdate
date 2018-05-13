@@ -16,7 +16,9 @@ import './pop.test';
 import './popAt.test';
 
 import './insert.test';
+
 import './splice.test';
+import './spliceAt.test';
 
 import './shift.test';
 import './shiftAt.test';

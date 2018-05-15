@@ -299,7 +299,7 @@ const newState = pushAt(state, 'a.b', {z:3}, {w: 4})
 // newState = {a: {b: [{x: 1}, {y: 2}, {z:3}, {w: 4}]}}
 ```
 
-Important edge case: pushAt empty `values` saves reference: `src === pushAt(src, pathToArray)`
+Important edge case: pushAt empty `values` saves reference: `src === pushAt(src, 'a.b')`
 
 ### pop(srcArray, n = 1)
 
@@ -315,7 +315,7 @@ Important edge case: insert empty `values` at any index saves reference: `srcArr
 
 ### insertAt(src, pathToArray, atIndex, ...values)
 
-Important edge case: insert empty `values` at any index saves reference: `src === insert(srcArray, 'a.b', i)`
+Important edge case: insert empty `values` at any index saves reference: `src === insert(src, 'a.b', i)`
 
 ### splice(srcArray, atIndex, deleteCount, ...values)
 
@@ -357,7 +357,7 @@ const newState = pushAt(state, 'a.b', {z:3}, {w: 4})
 // newState = {a: {b: [{z:3}, {w: 4}, {x: 1}, {y: 2}]}}
 ```
 
-Important edge case: unshiftAt empty `values` saves reference: `src === unshiftAt(src, pathToArray)`
+Important edge case: unshiftAt empty `values` saves reference: `src === unshiftAt(src, 'a.b')`
 
 ### createSelector(...inputSelectors | [inputSelectors], resultFunc)
 

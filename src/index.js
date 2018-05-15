@@ -16,6 +16,7 @@ import pop from './pop';
 import popAt from './popAt';
 
 import insert from './insert';
+import insertAt from './insertAt';
 
 import splice from './splice';
 import spliceAt from './spliceAt';
@@ -41,6 +42,7 @@ export {
   pop,
   popAt,
   insert,
+  insertAt,
   splice,
   spliceAt,
   shift,

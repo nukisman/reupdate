@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.11.0
+
+Features:
+* New `insertAt` function
+
 ## 1.10.1
 
 Fixes:

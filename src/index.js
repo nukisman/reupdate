@@ -68,7 +68,7 @@ export {
 // unshift(srcArray, ...values)
 
 // TODO: Create intermediate objects/arrays if necessary
-// TODO: insertAt(src, pathToArray, at, ...values)
+// insertAt(src, pathToArray, at, ...values)
 // spliceAt(srcArray, pathToArray, deleteCount, ...values)
 // pushAt(src, pathToArray, ...values)
 // popAt(src, pathToArray, n = 1)

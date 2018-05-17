@@ -136,8 +136,8 @@ import createSelector from 'reupdate/createSelector';
   * [updateAt(value, path, updater)](#updateatvalue-path-updater)
   * [deleteAt(value, path)](#deleteatvalue-path)
 * Object spcific functions  
-  * [extend(object, extensionObject)](#extendobject-extensionobject)
-  * [extendAt(value, pathToObject, extensionObject)](#extendatvalue-path-extensionobject)
+  * [extend(src, extensionOrCreator)](#extendsrc-extensionorcreator)
+  * [extendAt(src, pathToObject, extensionOrCreator)](#extendatsrc-pathtoobject-extensionorcreator)
 * Array specific functions
   * [push(srcArray, ...values)](#pushsrcarray-values)
   * [pushAt(src, pathToArray, ...values)](#pushatsrc-pathtoarray-values)
@@ -235,15 +235,21 @@ const res = deleteAt(value, 'y');
 // value === res
 ```
         
-### extend(object, extensionObject)
+### extend(src, extensionOrCreator)
 
-Returns `object` if `extensionObject` has nothing new (has deep equal only properties).
+Params:
+ * src: source `Object`
+ * extensionOrCreator: `Object` | `Object => Object`
+    * Extension object
+    * Function for creating extension object from `src`
+
+Returns `src` if `extensionOrCreator` has nothing new (has deep equal only properties).
 
 Returns new object with: 
   * Same references to not changed properties 
   * New references to changed properties
   
-Important edge case: `extend` with empty `extensionObject` saves reference: `object === extend(object, {})`  
+Important edge case: `extend` with empty `extensionOrCreator` saves reference: `src === extend(src, {})`
   
 ```javascript
 import extend from 'reupdate/extend';
@@ -282,9 +288,13 @@ expect(res.friends[0] === src.friends[0]).toBe(false);
 expect(res.friends[1] === src.friends[1]).toBe(true); // Same reference!
 ```  
 
-### extendAt(value, pathToObject, extensionObject)
+### extendAt(src, pathToObject, extensionOrCreator)
 
 `extend` nested object of value
+
+Params:
+ * pathToObject: `string` - lodash path string
+ * See `extend`
 
 ### push(srcArray, ...values)
 

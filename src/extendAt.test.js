@@ -1,202 +1,213 @@
 /* Created by Alexander Nuikin (nukisman@gmail.com). */
 
-import extendAt from './extendAT';
+import extendAt from './extendAt';
+import { cloneDeep, multiTest } from './test.util';
 
 describe('extendAt', () => {
-  test('Extend with empty at root', () => {
-    const state = {
+  multiTest(
+    'Extend with empty at root',
+    {
       wip: true,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const res = extendAt(state, '', {});
-    expect(res).toEqual(state);
-
-    expect(res).toBe(state);
-  });
-  test('Extend with empty at path', () => {
-    const state = {
+    },
+    {},
+    [
+      (state, ext) => extendAt(state, '', ext),
+      (state, ext) => extendAt(state, '', state => ext)
+    ],
+    (state, ext) => state,
+    (state, res) => expect(res).toBe(state)
+  );
+  multiTest(
+    'Extend with empty at path',
+    {
       wip: true,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const res = extendAt(state, 'result', {});
-    expect(res).toEqual(state);
+    },
+    {},
+    [
+      (state, ext) => extendAt(state, 'result', ext),
+      (state, ext) => extendAt(state, 'result', result => ext)
+    ],
+    (state, ext) => state,
+    (state, res) => expect(res).toBe(state)
+  );
 
-    expect(res).toBe(state);
-  });
-
-  test('Changed part at root', () => {
-    const state = {
+  multiTest(
+    'Extend with changed part at root',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const ext = {
-      wip: true
-    };
-    const res = extendAt(state, '', ext);
-    expect(res).toEqual({ ...state, ...ext });
-
-    expect(res).not.toBe(state);
-    expect(res.wip).not.toBe(state.wip);
-    expect(res.result).toBe(state.result);
-    expect(res.result.total).toBe(state.result.total);
-    expect(res.result.ids).toBe(state.result.ids);
-  });
-
-  test('Changed part at path', () => {
-    const state = {
+    },
+    { wip: true },
+    [
+      (state, ext) => extendAt(state, '', ext),
+      (state, ext) => extendAt(state, '', state => ext)
+    ],
+    (state, ext) => ({ ...state, ...ext }),
+    (state, res) => {
+      expect(res).not.toBe(state);
+      expect(res.wip).not.toBe(state.wip);
+      expect(res.result).toBe(state.result);
+      expect(res.result.total).toBe(state.result.total);
+      expect(res.result.ids).toBe(state.result.ids);
+    }
+  );
+  multiTest(
+    'Extend with changed part at path',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const ext = {
-      total: 4
-    };
-    const res = extendAt(state, 'result', ext);
-    expect(res).toEqual({
+    },
+    { total: 4 },
+    [
+      (state, ext) => extendAt(state, 'result', ext),
+      (state, ext) => extendAt(state, 'result', result => ext)
+    ],
+    (state, ext) => ({
       ...state,
       ...{ result: { ...state.result, ...ext } }
-    });
+    }),
+    (state, res) => {
+      expect(res).not.toBe(state);
+      expect(res.wip).toBe(state.wip);
+      expect(res.result).not.toBe(state.result);
+      expect(res.result.total).not.toBe(state.result.total);
+      expect(res.result.ids).toBe(state.result.ids);
+    }
+  );
 
-    expect(res).not.toBe(state);
-    expect(res.wip).toBe(state.wip);
-    expect(res.result).not.toBe(state.result);
-    expect(res.result.total).not.toBe(state.result.total);
-    expect(res.result.ids).toBe(state.result.ids);
-  });
-
-  test('Changed at root', () => {
-    const state = {
+  multiTest(
+    'Extend with changed at root',
+    {
       wip: true,
       result: {
         total: 300,
         ids: ['a', 'b', 'c']
       }
-    };
-    const ext = {
-      wip: false,
-      result: {
-        total: 300,
-        ids: ['a', 'b', 'c']
-      }
-    };
-    // console.log('Extend: Changed');
-    const res = extendAt(state, '', ext);
-    expect(res).toEqual({ ...state, ...ext });
-
-    expect(res).not.toBe(state);
-    expect(res.wip).not.toBe(state.wip);
-    expect(res.result).toBe(state.result);
-    expect(res.result === state.result).toEqual(true);
-    expect(res.result.total).toBe(state.result.total);
-    expect(res.result.ids).toBe(state.result.ids);
-    expect(res.result.ids === state.result.ids).toEqual(true);
-  });
-
-  test('Changed at path', () => {
-    const state = {
+    },
+    state => ({ ...cloneDeep(state), wip: false }),
+    [
+      (state, ext) => extendAt(state, '', ext),
+      (state, ext) => extendAt(state, '', state => ext)
+    ],
+    (state, ext) => ({ ...state, ...ext }),
+    (state, res) => {
+      expect(res).not.toBe(state);
+      expect(res.wip).not.toBe(state.wip);
+      expect(res.result).toBe(state.result);
+      expect(res.result.total).toBe(state.result.total);
+      expect(res.result.ids).toBe(state.result.ids);
+    }
+  );
+  multiTest(
+    'Extend with changed at path',
+    {
       wip: true,
       result: {
         total: 300,
         ids: ['a', 'b', 'c']
       }
-    };
-    const ext = {
-      total: 222,
-      ids: ['a', 'b', 'c']
-    };
-    const res = extendAt(state, 'result', ext);
-    // console.log({ res });
-    expect(res).toEqual({
+    },
+    state => ({ ...cloneDeep(state.result), total: 222 }),
+    [
+      (state, ext) => extendAt(state, 'result', ext),
+      (state, ext) => extendAt(state, 'result', result => ext)
+    ],
+    (state, ext) => ({
       ...state,
       ...{ result: { ...state.result, ...ext } }
-    });
+    }),
+    (state, res) => {
+      expect(res).not.toBe(state);
+      expect(res.wip).toBe(state.wip);
+      expect(res.result).not.toBe(state.result);
+      expect(res.result !== state.result).toEqual(true);
+      expect(res.result.total).not.toBe(state.result.total);
+      expect(res.result.ids).toBe(state.result.ids);
+      expect(res.result.ids === state.result.ids).toEqual(true);
+    }
+  );
 
-    expect(res).not.toBe(state);
-    expect(res.wip).toBe(state.wip);
-    expect(res.result).not.toBe(state.result);
-    expect(res.result !== state.result).toEqual(true);
-    expect(res.result.total).not.toBe(state.result.total);
-    expect(res.result.ids).toBe(state.result.ids);
-    expect(res.result.ids === state.result.ids).toEqual(true);
-  });
-
-  test('Not changed at root', () => {
-    const state = {
+  multiTest(
+    'Extend with same at root',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const ext = {
+    },
+    state => cloneDeep(state),
+    [
+      (state, ext) => extendAt(state, '', ext),
+      (state, ext) => extendAt(state, '', state => ext)
+    ],
+    (state, ext) => ({ ...state, ...ext }),
+    (state, res) => expect(res).toBe(state)
+  );
+  multiTest(
+    'Extend with same at path',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const res = extendAt(state, '', ext);
-    expect(res).toEqual({ ...state, ...ext });
+    },
+    state => cloneDeep(state.result),
+    [
+      (state, ext) => extendAt(state, 'result', ext),
+      (state, ext) => extendAt(state, 'result', result => ext)
+    ],
+    (state, ext) => ({ ...state, result: { ...state.result, ...ext } }),
+    (state, res) => expect(res).toBe(state)
+  );
 
-    expect(res).toBe(state);
-  });
-
-  test('Not changed at path', () => {
-    const state = {
+  multiTest(
+    'Extend with same part at root',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const ext = {
-      total: 3,
-      ids: ['dd2', '35', '4']
-    };
-    const res = extendAt(state, 'result', ext);
-    expect(res).toBe(state);
-  });
-
-  test('Not changed part at root', () => {
-    const state = {
+    },
+    state => ({ result: cloneDeep(state.result) }),
+    [
+      (state, ext) => extendAt(state, '', ext),
+      (state, ext) => extendAt(state, '', state => ext)
+    ],
+    (state, ext) => ({ ...state, ...ext }),
+    (state, res) => expect(res).toBe(state)
+  );
+  multiTest(
+    'Extend with same part at path',
+    {
       wip: false,
       result: {
         total: 3,
         ids: ['dd2', '35', '4']
       }
-    };
-    const ext = {
-      wip: false
-    };
-    const res = extendAt(state, '', ext);
-    expect(res).toEqual({ ...state, ...ext });
-
-    expect(res).toBe(state);
-  });
-
-  test('Not changed part at path', () => {
-    const state = {
-      wip: false,
-      result: {
-        total: 3,
-        ids: ['dd2', '35', '4']
-      }
-    };
-    const ext = {
-      total: 3
-    };
-    const res = extendAt(state, 'result', ext);
-    expect(res).toBe(state);
-  });
+    },
+    state => ({ ids: cloneDeep(state.result.ids) }),
+    [
+      (state, ext) => extendAt(state, 'result', ext),
+      (state, ext) => extendAt(state, 'result', result => ext)
+    ],
+    (state, ext) => ({ ...state, result: { ...state.result, ...ext } }),
+    (state, res) => expect(res).toBe(state)
+  );
 });

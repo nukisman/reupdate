@@ -1,9 +1,20 @@
 # Changelog
 
+## 1.12.0
+
+Features:
+* New `extend` support extensionOrCreator param
+* New `extendAt` support extensionOrCreator param
+
+Fixes:
+* Fix: README
+
 ## 1.11.1
 
 Features:
 * New `insertAt` function
+
+Fixes:
 * Fix: README
 
 ## 1.10.1
